@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'person.dart';
+import 'personCard.dart';
 
 void main() {
   runApp(
@@ -17,6 +19,12 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
   int count = 0;
+  List<Person> names = [
+    Person(name: 'nahin islam', id: '32339'),
+    Person(name: 'mahin', id: '211110'),
+    Person(name: 'Jahin', id: '2340')
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,21 +55,43 @@ class _MyWidgetState extends State<MyWidget> {
                 style: TextStyle(
                     fontSize: 30.0, color: Colors.redAccent, letterSpacing: 2),
               ),
-              Text(
-                "ABCD",
-                style: TextStyle(
-                  fontSize: 40.0,
-                  color: const Color.fromARGB(255, 82, 218, 255),
-                ),
-              ),
-              SizedBox(
-                height: 20,
+              Column(
+                children: names
+                    .map((name) => Text(
+                          '${name.name}',
+                          style: TextStyle(
+                              fontFamily: AutofillHints.addressCityAndState,
+                              fontSize: 10.0,
+                              color: Colors.blue),
+                        ))
+                    .toList(),
               ),
               Text(
                 "ID :",
                 style: TextStyle(
                     fontFamily: AutofillHints.addressCityAndState,
                     fontSize: 30.0,
+                    color: Colors.blue),
+              ),
+              Column(
+                children: names
+                    .map((name) => Text(
+                          '${name.id}',
+                          style: TextStyle(
+                              fontFamily: AutofillHints.addressCityAndState,
+                              fontSize: 10.0,
+                              color: Colors.blue),
+                        ))
+                    .toList(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Number count :",
+                style: TextStyle(
+                    fontFamily: AutofillHints.addressCityAndState,
+                    fontSize: 20.0,
                     color: Colors.blue),
               ),
               SizedBox(
@@ -75,28 +105,28 @@ class _MyWidgetState extends State<MyWidget> {
                     color: Colors.blue),
               ),
               SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.email,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
-                    ":  data@gmail.com",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 14, 188, 20),
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.red,
-                      decorationStyle: TextDecorationStyle.wavy,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Icon(
+              //       Icons.email,
+              //       size: 20,
+              //     ),
+              //     SizedBox(
+              //       width: 10.0,
+              //     ),
+              //     Text(
+              //       ":  data@gmail.com",
+              //       style: TextStyle(
+              //         fontSize: 20,
+              //         color: Color.fromARGB(255, 14, 188, 20),
+              //         decoration: TextDecoration.underline,
+              //         decorationColor: Colors.red,
+              //         decorationStyle: TextDecorationStyle.wavy,
+              //       ),
+              //     ),
+              //   ],
+              // ),
               SizedBox(
                 height: 40,
               ),
@@ -113,8 +143,7 @@ class _MyWidgetState extends State<MyWidget> {
                     style: TextStyle(color: Colors.amberAccent, fontSize: 20),
                   ),
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    disabledForegroundColor: Colors.red.withOpacity(0.38),
+                    backgroundColor: Color.fromARGB(255, 103, 4, 38),
                   ),
                 ),
               ),
@@ -132,10 +161,23 @@ class _MyWidgetState extends State<MyWidget> {
                   ),
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    disabledForegroundColor: Colors.red.withOpacity(0.38),
                   ),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: names
+                    .map((person) => PersonCard(
+                        person: person,
+                        delete: () {
+                          setState(() {
+                            names.remove(person);
+                          });
+                        }))
+                    .toList(),
+              )
             ],
           ),
         )),
